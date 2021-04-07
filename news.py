@@ -19,7 +19,6 @@ def any_msg(message):
     button1 = types.InlineKeyboardButton(text="Продолжить", callback_data="Продолжить")
     button2 = types.InlineKeyboardButton(text="Выйти", callback_data="Выйти")
     markup.add(button1, button2)
-    print(markup)
     bot.send_message(chat_id=message.chat.id,
                      text=welcome_to_chanel,
                      reply_markup=markup)
@@ -44,11 +43,20 @@ def callback_inline(call):
                 list_of_news_categories_dictionary = dict.fromkeys(s,f'https://kg.akipress.org{k}')
                 list_of_news_categories.append(s.text)
                 list_of_news_categories_dict.append(data)
+                print(list_of_news_categories_dictionary)
+
                 kbs = []
                 for x in list_of_news_categories_dictionary.keys():
                     kbs = kbs + [InlineKeyboardButton(text=x, callback_data=list_of_news_categories_dictionary[x])]
-                keyboard = InlineKeyboardMarkup(inline_keyboard=[kbs])
-                print(keyboard)
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[kbs])
+                    print(keyboard)
+
+                    bot.edit_message_text(chat_id=call.message.chat.id,
+                                      message_id=call.message.message_id,
+                                      text='Здесь вы можете выбрать подходящюю для вас '
+                                           'категорию новостей',
+                                      reply_markup=keyboard
+                                      )
 
 
 
@@ -60,12 +68,7 @@ def callback_inline(call):
 
 
 
-        bot.edit_message_text(chat_id=call.message.chat.id,
-                              message_id=call.message.message_id,
-                              text='Здесь вы можете выбрать подходящюю для вас '
-                                   'категорию новостей',
-                              reply_markup=keyboard
-                              )
+
 
 
 
