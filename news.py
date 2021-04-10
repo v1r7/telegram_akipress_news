@@ -29,6 +29,7 @@ def any_msg(message):
                mark_for_handler[1].get('name'))
     msg = bot.send_message(message.chat.id, welcome_to_chanel,
                            reply_markup=markup)
+
     bot.register_next_step_handler(msg,
                                    callback_inline)
 
@@ -57,12 +58,11 @@ def callback_inline(message):
                 list_of_news_categories_urls.append(f'{akipress_url}{k}')
                 list_of_news_categories.append(s.text)
                 list_of_news_categories_dict.append(data)
-                msg = bot.send_message(chat_id,'Здесь вы можете выбрать подходящюю категорию ',
+            msg = bot.send_message(chat_id,'Здесь вы можете выбрать подходящюю категорию ',
                                    reply_markup=markup)
-
-                bot.register_next_step_handler(msg,
-                                               get_products_by_category
-                                               )
+            bot.register_next_step_handler(msg,
+                                           get_products_by_category
+                                           )
         if message == "Выйти":
             pass
     except Exception as e:
@@ -89,7 +89,7 @@ def get_products_by_category(message):
                         'name': i.text,
                         'url': f'{category.get("url")}{k}'}
                     list_of_news.append(data)
-                    break
+
                 print(list_of_news)
 
 
